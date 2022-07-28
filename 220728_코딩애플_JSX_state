@@ -1,0 +1,34 @@
+css 파일 쓰려면 상단에서 import './css파일경로'
+
+1. JSX문법
+1) class 넣을 땐 className
+2) 변수넣을땐(데이터바인딩할땐) {중괄호}
+3) style 넣을땐 style={{스타일명 : '값'}}
+return()안에는 병렬로 태그 2개이상 기입금지
+
+
+
+
+자료(남자코트추천) 잠깐 저장할땐 변수사용 -> 리액트에선 state를 써도 된다.
+2. state 만드는 법
+
+_
+import { useState } from 'react';
+
+function App(){
+let [a,b] = useState('남자코트추천'); //let [a,b] = 이것이 자료를 뽑는 문법임, useState(자료)를 이용하여 자료를 담음
+}
+_
+
+-> a는 state에 보관했던 자료
+-> b는 state 변경 도와주는 함수
+-> 참고 destructuring 문법 
+  let num = [1, 2]; 배열안에 있는 자료가 넘나 유용해서 각각 빼서 쓰고 싶을때 아래와 같이 해당 문법을 사용해서 쓴다.
+  let [a, c] = [1, 2];
+  
+  state문법 언제 쓸까?
+  - 변수와 다르게 state는 갑자기 변경되면 자동으로 html이 리렌더링됨
+    -> 자주 변경될거같은 html부분은 state로 만들자
+  
+  
+  
