@@ -1,0 +1,91 @@
+1. 거짓 같은 값 (Falsy)
+ : 불리언 문맥에서 false로 평가되는 값
+   JavaScript는 조건절 (en-US), 반복문 (en-US) 등 불리언 값이 필요한 곳에서 형 변환 (en-US)을 이용해 특정 값을 불리언 값으로 변환
+
+  false : 키워드 false
+  0	: 숫자 zero
+  -0 : 음수 zero
+  0n : BigInt. 불리언으로 사용될 경우, 숫자와 같은 규칙을 따름. 0n은 거짓 같은 값.
+  "" : 빈 string
+  null : null - 아무런 값도 없음
+  undefined	: undefined - 원시값
+  NaN : (en-US)	NaN - 숫자가 아님
+
+
+  논리 AND 연산자, &&
+  첫 번째 객체가 거짓 같은 값이라면, 해당 객체를 반환함.
+
+  false && "dog"
+  // ↪ false
+
+  0 && "dog"
+  // ↪ 0
+  
+2. 참같은 값 (Truthy)
+: 불리언을 기대하는 문맥에서 true로 평가되는 값
+  따로 거짓 같은 값으로 정의된 값이 아니면 모두 참 같은 값으로 평가됩니다. 
+  JavaScript는 불리언 문맥에서 형 변환 (en-US)을 사용합니다.
+  
+3. 단축평가
+ 
+  단축 평가 표현식	평가 결과
+  true || anything	true
+  false || anything	anything
+  true && anything	anything
+  false && anything	false
+  
+
+4. 리액트 - &&연산자를 사용한 조건부 렌더링
+-> 둘 다 true여야 true나온다, 하나라도 false이면 false가 나오게 됨.
+   import React from 'react';
+    
+   function App(){
+      const name = '뤼액트';
+      return <div>{name === '리액트' && <h1>리액트입니다.</h1>}</div>;
+   }
+   
+   export default App;
+   
+   -> 바로 앞쪽에서 false가 나오니까 false라서 이렇게 하면 브라우저에 아무것도 나타나지 않을 것
+      다시 name값을 리액트로 설정하면 true니까 뒤의 값 '리액트입니다'가 나올 것
+   
+   그런데 falsy한 값인 0은 예외적으로 화면에 나타나게 됨.
+   const number = 0;
+   return number && <div>내용</div> //0이 화면에 출력될 것 
+   
+   
+5. undefined를 렌더링하지 않기
+
+
+   일반적인 방법으로 undefined를 값을 넣으면 오류가 생김
+   어떤 값이 undefined일 수 있다면 or 연산자를 사용하여 
+   해당 값이 undefined일때 사용할 값을 지정할 수 있으므로 
+   오류방지할 수 있음
+   -> 둘 중 하나만 true이면 true가 나옴
+   
+   import React from 'react';
+   import './App.css';
+    
+   function App(){
+      const name = undefined;
+      return name || '값이 undefined입니다.';
+   }
+   
+   export default App;
+   -> undefined는 falsy한 값으로 false가 나올 것
+      그래서 뒤의 값 '값이 undefined입니다.'가 나올 것  
+   
+   추가) jsx내부에서 undefined를 렌더링하는 것은 괜찮다
+   
+   import React from 'react';
+   import './App.css';
+    
+   function App(){
+      const name = undefined;
+      return <div>{name}<div/>;
+   }
+   
+   export default App;
+
+
+출처 https://developer.mozilla.org/ko/docs/Glossary/Falsy
