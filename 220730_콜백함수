@@ -1,0 +1,32 @@
+콜백함수
+: 함수에 파라미터로 들어가는 함수
+
+언제써?
+순차적으로 실행하고 싶을때
+ex) 버튼 눌렀을때 실행되는 이벤트가 있게하고싶을때
+    document.queryselector('button').addEventListener('click',function(){})
+    1초 후에 이런 코드를 실행하고 싶을때
+    setTimeout(function(){},1000)
+    ->콜백함수명만 넣어도 되고 콜백한수에 함수명도 끼워넣어도됨
+
+first()함수 다음에 sencond()함수 실행하고 싶으면?
+->사실 함수 순차적으로 써놓으면 자바스크립트는 위에서 아래로 실행되니까 
+  그렇게 해도 된다. 그러나 비동기처리등으로 꼬일 수도 있고, 
+  협업할때 first라는 함수가 유용해서 계속 가져다가 쓰고싶을 수도 있다.
+  그래서 아래와 같이 콜백함수를 활용하는 것
+
+  function first(파라미터){     //first함수 만들어놓으면 
+    console.log(1)
+    파라미터()
+  }
+
+  function second(){
+     console.log(2)
+  }
+
+  first(second)                //다른 팀원들이 이렇게 갖다쓸 수 있음
+  
+  
+  
+  단점은 복잡해질 수 있다는 것인데 
+  -> 이 문제때문에 promise나 async await를 쓰기도 한다.
