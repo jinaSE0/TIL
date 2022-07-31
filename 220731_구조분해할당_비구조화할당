@@ -1,0 +1,19 @@
+구조분해할당/비구조화할당
+: 배열이나 객체의 속성을 해체하여 그 값을 개별 변수에 담을 수 있게 하는 자바스크립트 표현식
+
+let a, b, rest;
+[a, b] = [10, 20]; //  이렇게 원래 변수에서 어떤 값을 분해해 할당할지 정의함
+
+console.log(a);
+// expected output: 10
+
+console.log(b);
+// expected output: 20
+
+[a, b, ...rest] = [10, 20, 30, 40, 50];
+
+console.log(rest);
+// expected output: Array [30,40,50]
+
+더욱 다양한 용례는 아래의 출처에서...
+출처 https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
