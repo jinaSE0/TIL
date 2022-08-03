@@ -1,0 +1,45 @@
+1. Promise를 사용해서 비동기 처리를 해준다.
+   promise는 자바스크립트에서 콜백을 처리할수 있도록 도와주는 내장 오브젝트이다.
+    
+    ```jsx
+    // promise는 내장 오브젝트이기때문에 new라는 키워드로 생성할수있다.
+    const promise = new Promise((resolve, reject)=>{
+    	// 네트워크 통신에 대한 내용....	
+        // promise가 만들어지는 순간 네트워크 요청이 바로 들어간다.
+        setTimeout(()=>{
+        	resolve("hello");
+            // Error도 내장되어있다.
+            reject(new Error("error message"));
+        });
+    },2000);
+    
+    promise.then((value)=>{
+    	// promise에서 값을 잘 받아오면(.then)
+        // value 값은 promise 안에서 resolve에 전달된 값
+        console.log(value); // hello
+    }).catch(error => {
+    	console.log(error); // error message
+    }).finally(()=>{
+    	console.log("성공하든 실패하든 보이는 메세지입니다.");
+    });
+    ```
+    
+    
+    2. async await를 사용해서 비동기 처리를 해준다.
+    
+    async await도 promise 를 반환하지만 promise보다 좀더 코드가 간결하기때문에 최근에는 promise 보다 많이 쓰이는 추세이다.
+    
+    ```jsx
+    async function f() {
+    
+      let promise = new Promise((resolve, reject) => {
+        setTimeout(() => resolve("완료!"), 1000)
+      });
+    
+      let result = await promise;// 프라미스가 이행될 때까지 기다림 (*)alert(result);// "완료!"
+    }
+    
+    f();
+    ```
+    
+    https://www.youtube.com/watch?v=m0icCqHY39U
