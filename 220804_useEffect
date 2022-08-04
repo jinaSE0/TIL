@@ -1,0 +1,39 @@
+리액트훅스-useEffect 
+
+
+import React, { useEffect } from "react";
+
+useEffect(()=>{
+// 콜백함수
+},[]);  //[]안에는 dependency array 의존성 배열을 넣음
+
+[] 배열 내에 들어있는 값이 변화하면 콜백함수가 수행됨
+->그래서 아래와 같이 활용할 수 있음
+useEffect(()=>{
+  console.log(`count is update : ${count}`);
+  if(count > 5) {
+    alert("count가 5를 넘었습니다 따라서 1로 초기화합니다");
+    setCount(1);
+  }
+}, [count]);
+// 카운트 버튼을 눌러보면 count is update : 1~5 까지의 값이나오고
+그 뒤에는 alert가 뜨고 초기화됨
+
+
+어떻게 쓸까?
+-> 라이프 사이클을 제어할 수 있음
+1. 마운트일때 
+[]에 빈 배열을 전달한 다음 콜백함수에 하고싶은 일 전달하면 됨
+
+useEffect(()=>{
+  console.log("Mount!"); //마운트일때 Mount! 가 출력됨
+},[]); 
+
+2. 업데이트될때
+[]를 전달하지않으면 됨
+useEffect(()=>{
+  console.log("Update!"); //업데이트일때 Update! 가 출력됨
+}); 
+
+3. 언마운트
+
