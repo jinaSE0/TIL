@@ -1,0 +1,172 @@
+깃허브 협업 명령어
+tiffa@ming MINGW64 /c/blindsparta
+$ git init
+Initialized empty Git repository in C:/blindsparta/.git/
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git remote add origin
+usage: git remote add [<options>] <name> <url>
+
+    -f, --fetch           fetch the remote branches
+    --tags                import all tags and associated objects when fetching
+                          or do not fetch any tag at all (--no-tags)
+    -m, --master <branch>
+                          master branch
+    --mirror[=(push|fetch)]
+                          set up remote as a mirror to push to or fetch from
+
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git remote add orign https://github.com/jinaSE0/blindsparta.git
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git remote -v
+orign   https://github.com/jinaSE0/blindsparta.git (fetch)
+orign   https://github.com/jinaSE0/blindsparta.git (push)
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git remote add upstream https://github.com/youngdong82/blindsparta.git
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git remote -v
+orign   https://github.com/jinaSE0/blindsparta.git (fetch)
+orign   https://github.com/jinaSE0/blindsparta.git (push)
+upstream        https://github.com/youngdong82/blindsparta.git (fetch)
+upstream        https://github.com/youngdong82/blindsparta.git (push)
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git pull upstream
+remote: Enumerating objects: 12, done.
+remote: Counting objects: 100% (12/12), done.
+remote: Compressing objects: 100% (6/6), done.
+remote: Total 12 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (12/12), 3.33 KiB | 39.00 KiB/s, done.
+From https://github.com/youngdong82/blindsparta
+ * [new branch]      main       -> upstream/main
+You asked to pull from the remote 'upstream', but did not specify
+a branch. Because this is not the default configured remote
+for your current branch, you must specify a branch on the command line.
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git log --oneline --all --graph
+* e8e51fb (upstream/main) hahaha
+*   9eb660a Merge pull request #3 from jinaSE0/main
+|\
+| *   c40c53e Merge pull request #1 from youngdong82/main
+| |\
+| |/
+|/|
+* |   1ed8dd0 Merge pull request #1 from caffesale/main
+|\ \
+| |/
+|/|
+
+tiffa@ming MINGW64 /c/blindsparta (master)
+$ git checkout e8e51fb
+Note: switching to 'e8e51fb'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at e8e51fb hahaha
+
+tiffa@ming MINGW64 /c/blindsparta ((e8e51fb...))
+$ git checkout -b abc e8e51fb 
+Switched to a new branch 'abc'
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git status
+On branch abc
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git add README.md
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git commit -m '메시지'
+[abc 30acb0b] 메시지
+ 1 file changed, 1 insertion(+)
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git push orign
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 287 bytes | 95.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote: 
+remote: Create a pull request for 'abc' on GitHub by visiting:
+remote:      https://github.com/jinaSE0/blindsparta/pull/new/abc
+remote:
+To https://github.com/jinaSE0/blindsparta.git
+ * [new branch]      abc -> abc
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git pull upstream
+remote: Enumerating objects: 8, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 4 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (4/4), 1.29 KiB | 19.00 KiB/s, done.
+From https://github.com/youngdong82/blindsparta
+   e8e51fb..7ba3130  main       -> upstream/main
+You asked to pull from the remote 'upstream', but did not specify
+a branch. Because this is not the default configured remote
+for your current branch, you must specify a branch on the command line.
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git log --oneline --all --graph
+* 7ba3130 (upstream/main) Update README.md
+*   985497c Merge pull request #4 from jinaSE0/abc
+|\
+| * 30acb0b (HEAD -> abc, orign/abc) 메시지
+|/
+* e8e51fb hahaha
+*   9eb660a Merge pull request #3 from jinaSE0/main
+|\
+| *   c40c53e Merge pull request #1 from youngdong82/main
+| |\
+| |/
+
+tiffa@ming MINGW64 /c/blindsparta (abc)
+$ git checkout 7ba3130
+Note: switching to '7ba3130'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 7ba3130 Update README.md
+
+tiffa@ming MINGW64 /c/blindsparta ((7ba3130...))
+$
