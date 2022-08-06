@@ -1,0 +1,15 @@
+깃만들고 연결하기
+1. 디렉토리 만들기
+2. 터미널에서 해당 경로로 이동
+3. 깃 넣어주기 git init
+4. 깃 리모트 확인 git remote -v
+5. 깃 리모트 오리진 설정해주기 git remote add origin URL
+6. 깃 리모트 확인 git remote -v
+
+웹에서 파일 가져오기
+1. 파일 가져오기 git pull
+2. 브랜치 확인 git branch --all
+3. 브랜치 이동 git chekchout main
+2. 브랜치 확인 git branch --all
+4. 기존 브랜치 삭제 git branch -d master
+5. pull 잘 되었는지 확인 git log --graph --all --oneline
