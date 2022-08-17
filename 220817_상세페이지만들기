@@ -1,0 +1,95 @@
+상세페이지 기본 원리
+1. 파람값으로 id 값찾고
+2. 데이터값으로 id 찾고
+3. id값이 일치하는 데이터들을 랜딩해준다.
+->Q. 그냥 게시판에서 프롭으로 내려주면 안되나?
+가능은하지만 그 사이에 뭔가 업데이트 되었을 수도 있고 
+보통상세페이지에 랜더링 되는 데이터가 크기때문에
+새로 상세페이지에서 부른다.
+
+import * as React from "react";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import { styled } from "@mui/material/styles";
+import "./detail.css";
+import Header from "../../components/header/Header";
+import axios from "axios"
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
+
+export default function Detail() {
+
+  const param = useParams(); 
+  console.log(param);
+
+  const [data, setData] = useState({}); 
+  //만약에 왼쪽과 같이 빈 객체가 아니라 [] 빈 배열을 넣게 되면 undefined로 나와서 데이터가 랜더링되지 않는다.
+  빈 객체는 NULL이나 undefined가 아니다.....
+
+  useEffect(()=> {
+    callSomethingAxios(); 
+  },[])
+
+  const callSomethingAxios = () => { 
+    axios({
+      method: "get", // 통신할 방식
+      url:"http://localhost:3001/posts/" // 통신할 웹문서
+    }).then(response => { 
+      console.log(response.data)
+      // setData(response.data)
+      const newData = response.data.find((data)=>`${data.id}`===`${param.id}`) //==을 써도 되고 `${}`를 써서 문자열화 하면 
+      if (newData){
+          setData(newData)
+      }
+    })
+  }
+
+
+  return (
+    <div className="wrap">
+      <Header></Header>
+      <div className="layout">
+        <br />
+      <Stack 
+        // style ={{border: "1px solid red"}}
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        <Item className="image">{data.imageUrl?? ""}</Item> // 왜 뒤에 ??""을 붙이나 -> 누락된 정보가 있을수도있으니까 미연에 방지
+        <Item className="itemname">{data.product?? ""}</Item>
+      </Stack>
+      <br />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        <Item className="titledesign">{data.title?? ""}</Item> 
+        <Item className="postinginfo">{data.username?? ""}</Item>
+        <Item className="postinginfo">{data.CreatedAt?? ""}</Item>
+        <Item className="postinginfo">{data.LikeNum?? ""}</Item>
+      </Stack>
+      <br />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        <Item className="contents">{data.contents?? ""}</Item>
+      </Stack>
+      </div>
+    </div>
+      
+    
+  );
+}
+
+// https://mui.com/material-ui/react-stack/
