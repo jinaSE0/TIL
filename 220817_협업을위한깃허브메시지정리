@@ -1,0 +1,13 @@
+contributor로 할때
+
+본인 브랜치에서 커밋
+git switch dev / dev로 이동
+git pull origin dev /원격 dev에서 당겨오기
+git switch 본인 브랜치 / 본인 브랜치로 이동
+git merge dev / 머지
+충돌수정하고 -> 위와 같이 하는 이유는 vscode에서 수정하는게 더 편하기 때문
+본인브랜치에서 커밋
+본인 원격저장소로 푸시
+깃허브 팀장님꺼 가서
+본인원격저장소->팀장님원격저장소로 풀리퀘스트
+본인 브랜치인지 확인하고 작업 시작 
