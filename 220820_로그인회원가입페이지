@@ -1,0 +1,47 @@
+로그인 회원가입 페이지 한 번에 만드는 법
+
+import React from "react";
+import "../login/index.css";
+import { useState } from "react";
+
+const Main = (props) => {
+  const [login, setLogin] = useState(true);
+  
+
+  return (
+    <div>
+      <div className="contentsWrap">
+        <div className="loginWindow">
+          {login? 
+          <div>
+            <div className="loginvalues">
+            <img src="img/logo_text.png" className="imgsize"></img>
+            <input type="text" placeholder="아이디" className="inlineToBlock"></input>
+            <input type="text" placeholder="비밀번호" className="inlineToBlock"></input>
+            <button className="inlineToBlock ordinaryLogin unactivatedLoginColor">로그인</button> 
+            </div>
+          <br></br>
+          <div >
+            <p>
+              계정이 없으신가요?
+              <button onClick={()=>{setLogin(false)}} class="noneunderline" className="haveAccount">가입하기</button>
+            </p>
+          </div>
+          </div>
+           : 
+           <div>
+            <img src="img/logo_text.png" className="imgsize"></img>
+            <input type="text" placeholder="아이디" className="inlineToBlock"></input>
+            <button>아이디 확인</button>
+            <input type="text" placeholder="비밀번호" className="inlineToBlock"></input>
+            <input type="text" placeholder="비밀번호 확인" className="inlineToBlock"></input>
+           <button onClick={()=>{setLogin(true)}}>뒤로가기</button>
+           </div>}
+           
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Main;
