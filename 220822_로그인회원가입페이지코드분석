@@ -1,0 +1,105 @@
+import { useState, useRef } from 'react';
+
+import classes from './AuthForm.module.css';
+
+const AuthForm = () => {
+  const emailInputRef = useRef(); //*ref를 이용하여 input의 입력값 받을 예정  
+  const passwordInputRef = useRef();
+
+  const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); 
+
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault(); //이걸 설정하는 이유는 브라우저의 기본값이 요청을 자동으로 보내지않게 하기위해! 로그인 직접 요청할거잖아
+
+    const enteredEmail = emailInputRef.current.value; //입력데이터를 추출하는 다른 방법으로는 useState가 있음 
+    const enteredPassword = passwordInputRef.current.value;
+
+    // optional: Add validation
+    //통신은 파이어베이스 인증서비스 REST API 이용, 방법은 파이어 베이스 공식문서 보고하면 됨
+    setIsLoading(true); 
+    let url;
+    if (isLogin) { 
+      url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=프로젝트의 특정api 키';
+        //로그인모드일때 엔드포인트
+    } else {
+      url =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=프로젝트의 특정api 키를넣어줘야 이게 어떤 프로젝트에 속하는지 알지';
+        //회원가입모드일때 엔드포인트
+    }
+    fetch(url, { //fetch 함수로 http 요청, url을 변수로 넣어서 위처럼 하드코딩하지않아도됨
+      method: 'POST', //로그인과 회원가입 둘 다 통신 방식은 포스트, 디폴트값은 GET임
+      body: JSON.stringify({ //{}안의 객체를 제이슨형식으로 만들어줘
+      //아래는 첨부할데이터들
+        email: enteredEmail,
+        password: enteredPassword,
+        returnSecureToken: true,
+      }),
+      headers: {
+        'Content-Type': 'application/json', //제이슨데이터가 rest api에 들어간다는걸 알려주기위해 요청에 헤더도 넣음
+      },
+    })//여기까지하면 가입요청은 되지만 오류처리와 응답을 아래에서 더해보자
+      .then((res) => { //응답을 다뤄보자
+        setIsLoading(false); //응답이오면 오류여부에 관계없이 setIsLoading(false);를 수행 
+        if (res.ok) { //응답이성공하면
+          return res.json();
+        } else { //응답이 실패하면 return 으로 중첩프로미스체인을 반환해보자
+          return res.json().then((data) => { //실패하면 받은 res에 부가정보가 있을테니  res.json()를 호출해서 응답데이터 살펴봄
+          // res.json()역시 프로미스를 반환하기때문에 then을 사용하여 실제 데이터에 접근하여야함
+            //console.log(data);를찍어보면 에러데이터를 볼 수 있음
+            let errorMessage = 'Authentication failed!';
+             throw new Error(errorMessage); 
+             //throw를 사용해서 에러메시지를 캐치로 보냄 -> 이렇게하면 이 프로미스(res.json().then((data))와 외부프로미스는 거절되고 캐치로가고**
+          });
+        }
+      })
+      .then((data) => {//요청성공시 응답을 받거나 ***then블록을 수행한다
+        console.log(data);
+      })
+      .catch((err) => {
+        alert(err.message);//오류를캐치로받아보자-fetch는 promise객체를 반환하기때문에 catch메소드 사용가능; **캐치에 오류가없으면 ***
+      });
+  };
+
+  return (
+    <section className={classes.auth}>
+      <h1>{isLogin ? 'Login' : 'Sign Up'}</h1>
+      <form onSubmit={submitHandler}> //요청을 하려면 submitHandler를 연결해놔야지
+        <div className={classes.control}>
+          <label htmlFor='email'>Your Email</label>
+          <input type='email' id='email' required ref={emailInputRef} /> //*
+        </div>
+        <div className={classes.control}>
+          <label htmlFor='password'>Your Password</label>
+          <input
+            type='password'
+            id='password'
+            required
+            ref={passwordInputRef}
+          />
+        </div>
+        <div className={classes.actions}>
+          {!isLoading && (
+            <button>{isLogin ? 'Login' : 'Create Account'}</button>
+          )} //로딩중이아닐때만 계정생성 버튼이 있음
+          {isLoading && <p>Sending request...</p>} //로딩중이면 <p/>안의 메시지 노출
+          <button
+            type='button'
+            className={classes.toggle}
+            onClick={switchAuthModeHandler}
+          >
+            {isLogin ? 'Create new account' : 'Login with existing account'}
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+};
+
+출처
+https://github.com/academind/react-complete-guide-code/blob/22-authentication/code/04-adding-user-login/src/components/Auth/AuthForm.js
