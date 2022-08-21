@@ -1,0 +1,85 @@
+useState를 이용한 input값 관리
+
+*만드는 법 개괄
+
+1. 입력폼 생성
+
+2. input에 onChange메서드 구현 
+: input폼과 state를 연결 -> 값이 변할때 상태 변화 감지
+선언 const handleOnChange = (e) => {
+     console.log(e.target.name); 
+     / e는 이벤트 속성으로 사용자의 액션에 의해 발생
+     / e.target은 event가 전달한 객체에 대한 참조     
+리턴 <input type="text" name="userName" onChange={handleOnChange} />
+
+3. useState이용해서 state변경
+const handleUserAgeOnChange = (e) => {
+    setUserAge(e.target.value)
+}
+
+4. 사용자 추가 버튼의 onClick메서드 구현
+-> 값을 초기화
+
+5. 배열 랜더링
+
+---
+*코드
+import React, { useState } from 'react';
+
+function InputTest(props) {
+
+    //state관리
+    const [inputs, setInputs] = useState({
+        username: '',
+        userid: ''
+    });
+
+    //비구조화할당을 통해 값을 추출
+    const { username, userid } = inputs;
+
+    //값이 변경되는 함수 - 타겟대상이 2개임을 처리
+    const onDateChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs, //기존 input 객체를 복사 - 나머지 패턴
+            [name]: value
+        });
+    }
+
+
+    //값을 초기화시키는 함수
+    const onDataReset = () => {
+        setInputs({
+            username: '',
+            userid: ''
+        });
+    }
+
+    return (
+        <div style={style}>
+            <input
+                type="text"
+                placeholder="이름입력"
+                name="username"
+                value={username}
+                onChange={onDateChange}
+            />
+            <input
+                type="text"
+                placeholder="아이디입력"
+                name="userid"
+                value={userid}
+                onChange={onDateChange}
+            />
+            <button onClick={onDataReset}>데이터 리셋</button>
+            <h3>값: {username}({userid})</h3>
+        </div>
+    );
+}
+
+export default InputTest;
+
+
+출처
+https://ossam5.tistory.com/104
+https://wonit.tistory.com/316
