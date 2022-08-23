@@ -1,0 +1,116 @@
+일단 store폴더를 만들어서 auth-context.js 파일을 만든다2
+
+import React from 'react';
+
+//React.createContext(기본 컨텍스트*-> 대부분은 {객체}임); 
+const AuthContext = React.createContext({
+  isLoggedIn: false **
+});
+//createContext에서 얻는 결과는 컴포넌트가 되거나 컴포넌트를 포함하는 객체가 될 것
+-> AuthContext라고 표기한 이유는 자체가 컴포넌트가 아니지만 컴포넌트를 포함할 객체이기 때문
+
+export default AuthContext;
+//export해서 이 특정 컨텍스트 객체를 내보내서 다른데서 쓸 수 있음
+
+--------------------------------------------------------------------------------------
+-> 앱에서 컨텍스트를 사용하려면 공급하고 소비해야
+
+1) 공급 (JSX코드로 감싸는 것->감싸진 컴포넌트들은 해당 컨텍스트를 사용할 수 있음)
+-> 기본값*이 있으면 사실 공급안해도되긴해
+APP.js
+  return (//AuthContext자체는 컴포넌트가 아님 .을 이용하여 AuthContext 객체의 provider 속성에 접근한다.
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+      }} // 이 밸류 객체는 isLoggedIn이 변경될때마다 리액트에 의해 업데이트 됨
+    >
+      <MainHeader onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+    </AuthContext.Provider>
+  );
+}
+
+2) 소비(listening) - AuthContex consumer 또는 react hook 사용
+
+2-1) AuthContex consumer
+import React from 'react';
+
+import AuthContext from '../../store/auth-context';
+import classes from './Navigation.module.css';
+
+//<AuthContext.Consumer> {(인수로 컨텍스트 데이터 **) => { 해당 데이터에 접근할 수 있는 JSX코드}}
+const Navigation = (props) => {
+  return (
+    <AuthContext.Consumer>
+      {(ctx) => {
+        return (
+          <nav className={classes.nav}>
+            <ul>
+              {ctx.isLoggedIn && (
+                <li>
+                  <a href="/">Users</a>
+                </li>
+              )}
+              {ctx.isLoggedIn && (
+                <li>
+                  <a href="/">Admin</a>
+                </li>
+              )}
+              {ctx.isLoggedIn && (
+                <li>
+                  <button onClick={props.onLogout}>Logout</button>
+                </li>
+              )}
+            </ul>
+          </nav>
+        );
+      }}
+    </AuthContext.Consumer>
+  );
+};
+
+2-2) useContext 훅 사용하기
+import React, { useContext } from 'react';
+
+import AuthContext from '../../store/auth-context';
+import classes from './Navigation.module.css';
+
+
+export default Navigation;
+
+const Navigation = (props) => {
+
+  const ctx = useContext(AuthContext); //컨텍스트에게 포인터,AuthContext 전달함
+  
+  return (
+      {(ctx) => {
+        return (
+          <nav className={classes.nav}>
+            <ul>
+              {ctx.isLoggedIn && (
+                <li>
+                  <a href="/">Users</a>
+                </li>
+              )}
+              {ctx.isLoggedIn && (
+                <li>
+                  <a href="/">Admin</a>
+                </li>
+              )}
+              {ctx.isLoggedIn && (
+                <li>
+                  <button onClick={props.onLogout}>Logout</button>
+                </li>
+              )}
+            </ul>
+          </nav>
+        );
+      }}
+    </AuthContext.Consumer>
+  );
+};
+
+export default Navigation;
