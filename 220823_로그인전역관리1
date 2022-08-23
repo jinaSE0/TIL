@@ -1,0 +1,45 @@
+토큰을 저장해서 모든 컴포넌트에 쓸 수 있도록 로그인 관련해서 전역관리하려고함...
+context API로 app wide state를 구현해보자
+
+import React, { useState } from 'react';
+
+const AuthContext = React.createContext({ 
+//초기데이터로 AuthContext를 초기화-> 컨텍스트의 전반적인 형태 정의 및 나중에 자동완성도 잘됨
+  token: '',
+  isLoggedIn: false,
+  //로그인여부는 토큰 여부로 알 수 있지만 boolean값으로 더 간편하게 가능함, 기본적으로 사용자는 로그인안된 상태(false)겠지
+  login: (token) => {},
+  logout: () => {},
+});
+
+export const AuthContextProvider = (props) => { //해당 컴포넌트는 인증관련 상태를 관리하는 역할을 할 것, useState이용
+  const [token, setToken] = useState(null); //컴포넌트 안에 토큰의 상태 정의, 최초에는''이나 null로 초기화
+
+  const userIsLoggedIn = !!token; 
+  //토큰이 있는지 확인한 결과를 담는다
+  //!!를 활용하여 boolean value로 전환(토큰이 빈 문자열이 아니면 true를 반환하고 토큰이 빈 문자열이면 false를 반환)
+
+  const loginHandler = (token) => { //토큰 상태를 반환하는 함수, 토큰을 인자로 받아 셋토큰 수행
+    setToken(token);
+  };
+
+  const logoutHandler = () => {
+    setToken(null); //로그아웃은 토큰을 없앰
+  };
+
+  const contextValue = { //AuthContext.Provider에 밸류로 넣어줌
+    token: token, //token state
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
+  };
+
+  return ( //AuthContextProvider 컴포넌트를 다른 컴포넌트를 감싸는 래퍼로 활용하면 다른 컴포넌트가 이 컨텍스트에 접근할 수 있음
+    <AuthContext.Provider value={contextValue}>
+      {props.children}
+    </AuthContext.Provider>
+  );
+};
+
+export default AuthContext;
+->인덱스 폴더에 가서 컨텍스트로 앱전체 래핑
