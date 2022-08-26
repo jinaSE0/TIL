@@ -1,0 +1,38 @@
+필요성
+실전 프로젝트 들어가기전에 ... 원하는 위치에 원하는 것을 배치할 줄 알아야하니까... css공부시작
+
+공부방법
+- flex와 grid를 중점으로 공부할 예정
+- 요약집 읽고
+- 게임과 실습으로 익혀볼 예정
+
+**Flex는 1차원 적인 레이아웃**을 잡을 때 사용 **
+**Flex**는 부모 요소(컨테이너) 아래에서 ****자식 요소(아이템)들이 **한 방향으로 배치**가 된다. 
+따라서 **행 또는 열** 한 가지 방향으로 레이아웃을 배치해야 하는 경우에 사용한다. 
+또한 다양한 속성을 통해 자식 요소 사이를 일정한 간격으로 줄 수 있고 정렬하기가 매우 편하다.
+
+**grid는 2차원 적인 레이아웃**을 잡을 때 용이하다.
+Grid는 행과 열 Matrix 형태로 레이아웃을 배치해야 하는 경우 사용한다. 
+원하는 요소를 어디서부터 어디까지, 어느 방향으로 차지하게 할 건지 정하고 배치하면 된다.
+
+
+출처
+요약집 (https://paullabworkspace.notion.site/Flex-568472a6b5da41b9b098d346850c077d)
+
+css게임
+https://studiomeal.com/archives/924
+
+Flexbox Froggy
+CSS 코드로 개구리가 수련잎에 올라갈 수 있도록 돕기
+https://flexboxfroggy.com/#ko
+해설 라이브 영상 https://youtu.be/IbTLHILrLn0
+
+Grid Garden
+CSS 코드로 당근밭 가꾸기
+https://cssgridgarden.com/#ko
+해설 라이브 영상 https://youtu.be/QHK53Y-7oRU
+
+Flexbox Defense
+CSS 코드로 대포를 배치해서 몰려드는 적들을 물리치는 디펜스게임
+http://www.flexboxdefense.com/
+해설 라이브 영상 https://youtu.be/eh2PqESkLAs
