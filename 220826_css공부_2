@@ -1,0 +1,40 @@
+flex
+
+- 부모와 자식 태그 필요
+- 부모요소(container)와 자식요소(item)에 적용하는 속성 구분
+- 속성의 영향은 컨테이너의 직계자식까지만 영향
+
+- flex container에는 정렬방식과 item의 배치 흐름 
+- flex-container의 속성 : flex-direction, flex-wrap, justify-content, align-items, align-content 
+
+- flex item에는 크기, 속성, 순서
+- flex-item의 속성 : flex, flex-grow, flex-shrink, flex-basis, align-self, order, z-index
+
+
+css 게임
+1. justify-content = **main-axis**로 어떻게 정렬할지 정하는 코드
+
+flex-start: 요소들을 컨테이너의 왼쪽으로 정렬합니다.
+flex-end: 요소들을 컨테이너의 오른쪽으로 정렬합니다.
+center: 요소들을 컨테이너의 가운데로 정렬합니다.
+
+아래 셋의 차이 유념할 것
+space-between: 요소들 사이에 동일한 간격을 둡니다. a-a-a
+space-around: 요소들 주위에 동일한 간격을 둡니다.  -a--a--a-
+space-evenly: 요소들 사이 및 주의 동일한 간격을 둠 -a-a-a-
+
+2. align-items = 축의 수직방향 정렬, 부모요소 안에서 **교차축**에따라 자식요소가 정렬됨
+
+flex-start: 요소들을 컨테이너의 꼭대기로 정렬합니다.
+flex-end: 요소들을 컨테이너의 바닥으로 정렬합니다.
+center: 요소들을 컨테이너의 세로선 상의 가운데로 정렬합니다.
+baseline: 요소들을 컨테이너의 시작 위치에 정렬합니다.
+stretch: 요소들을 컨테이너에 맞도록 늘립니다.
+
+3. flex-direction = flex-direction 이란 flex container 내의 item들의 정렬 방향을 결정하는 속성
+-> 자식요소를 텍스트의 방향부터 1번 2번 3번 생각하면 쉽게 정렬된다
+
+row: 요소들을 텍스트의 방향과 동일하게 정렬합니다.
+row-reverse: 요소들을 텍스트의 반대 방향으로 정렬합니다.
+column: 요소들을 위에서 아래로 정렬합니다.
+column-reverse: 요소들을 아래에서 위로 정렬합니다.
