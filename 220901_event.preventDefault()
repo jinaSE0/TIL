@@ -1,0 +1,21 @@
+ 1. form 태그에는 onSubmit 라는 이벤트함수가 있다.
+ 2. 이 이벤트 함수는 우리가 기본적으로 엔터키를 누르면 onSubmit안에 들어있는 함수를 실행시킨다.
+ 3. 또 이 이벤트 함수는 실행되면 기본적인 동작으로 페이지를 새로고침한다.
+ 4. 페이지 새로고침은 기본적 동작의 한 예시이다.
+ 5. 하지만 이런 기본동작을 막을수있다.
+ 6. onSubmit에 함수를 줄때 이 함수는 그냥 자체적으로 (파라미터 하나를 가지고 있다)
+ 7. 보통 e, event 라고 쓴다.
+ 8. 그리고 event.preventDefault()를 해주면 기본동작을 막을수있다.
+
+
+
+const 함수(event) => {
+  event.preventDefault()
+}
+<form onSubmit={함수}>
+  <input />
+  <input />
+  <input />
+  <input />
+  <input/>
+</form>
